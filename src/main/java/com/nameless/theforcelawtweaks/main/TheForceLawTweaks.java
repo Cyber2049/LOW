@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.nameless.theforcelawtweaks.client.mobs.oringal.CowDevilEntityRenderer;
 import com.nameless.theforcelawtweaks.client.mobs.patch.CowDevilPatchRenderer;
 import com.nameless.theforcelawtweaks.gameasset.Armatures;
+import com.nameless.theforcelawtweaks.gameasset.LOWSkills;
 import com.nameless.theforcelawtweaks.gameasset.Meshs;
 import com.nameless.theforcelawtweaks.gameasset.TFLAnimations;
 import com.nameless.theforcelawtweaks.world.capabilities.WeaponCapabilityPresents;
@@ -29,6 +30,7 @@ public class TheForceLawTweaks
     {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         BossEntities.ENTITIES.register(bus);
+        LOWSkills.registerSkills();
         bus.addListener(this::rendererRegister);
         bus.addListener(BossEntities::registerAttributes);
         bus.addListener(TFLAnimations::registerAnimations);
