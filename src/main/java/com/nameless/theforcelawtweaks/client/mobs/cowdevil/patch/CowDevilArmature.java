@@ -1,4 +1,4 @@
-package com.nameless.theforcelawtweaks.client.mobs.patch;
+package com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch;
 
 import yesman.epicfight.api.animation.Joint;
 import yesman.epicfight.api.model.Armature;

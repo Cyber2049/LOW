@@ -1,6 +1,6 @@
-package com.nameless.theforcelawtweaks.client.mobs.patch;
+package com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch;
 
-import com.nameless.theforcelawtweaks.client.mobs.oringal.CowDevilModel;
+import com.nameless.theforcelawtweaks.client.mobs.cowdevil.oringal.CowDevilModel;
 import com.nameless.theforcelawtweaks.gameasset.Meshs;
 import com.nameless.theforcelawtweaks.world.capabilities.entity.CowDevilPatch;
 import com.nameless.theforcelawtweaks.world.entity.CowDevilEntity;

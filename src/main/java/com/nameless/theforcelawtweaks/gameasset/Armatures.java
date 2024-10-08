@@ -1,6 +1,6 @@
 package com.nameless.theforcelawtweaks.gameasset;
 
-import com.nameless.theforcelawtweaks.client.mobs.patch.CowDevilArmature;
+import com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch.CowDevilArmature;
 import com.nameless.theforcelawtweaks.main.TheForceLawTweaks;
 import com.nameless.theforcelawtweaks.world.entity.BossEntities;
 import yesman.epicfight.api.forgeevent.ModelBuildEvent.ArmatureBuild;

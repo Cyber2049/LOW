@@ -1,4 +1,4 @@
-package com.nameless.theforcelawtweaks.client.mobs.oringal;
+package com.nameless.theforcelawtweaks.client.mobs.cowdevil.oringal;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

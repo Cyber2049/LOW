@@ -1,8 +1,8 @@
 package com.nameless.theforcelawtweaks.main;
 
 import com.mojang.logging.LogUtils;
-import com.nameless.theforcelawtweaks.client.mobs.oringal.CowDevilEntityRenderer;
-import com.nameless.theforcelawtweaks.client.mobs.patch.CowDevilPatchRenderer;
+import com.nameless.theforcelawtweaks.client.mobs.cowdevil.oringal.CowDevilEntityRenderer;
+import com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch.CowDevilPatchRenderer;
 import com.nameless.theforcelawtweaks.gameasset.Armatures;
 import com.nameless.theforcelawtweaks.gameasset.LOWSkills;
 import com.nameless.theforcelawtweaks.gameasset.Meshs;

@@ -1,4 +1,4 @@
-package com.nameless.theforcelawtweaks.client.mobs.oringal;
+package com.nameless.theforcelawtweaks.client.mobs.cowdevil.oringal;
 
 import com.nameless.theforcelawtweaks.main.TheForceLawTweaks;
 import com.nameless.theforcelawtweaks.world.entity.CowDevilEntity;
