@@ -79,7 +79,12 @@ public class TFLAnimations {
                 .addProperty(AnimationProperty.ActionAnimationProperty.MOVE_VERTICAL, false);
         HANDHALFSWORD_HEAVY_ATTACK1 = new AttackAnimation(0.5F,0.53F,0.54F,0.73F,1.16F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_heavyattack_1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F)
-                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F));
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F))
+                .addEvents(AnimationEvent.TimeStampedEvent.create(0.0F, (entitypatch, animation, params) -> {
+                    if(entitypatch instanceof ServerPlayerPatch playerPatch){
+                        BasicAttack.setComboCounterWithEvent(ComboCounterHandleEvent.Causal.TIME_EXPIRED_RESET, playerPatch, playerPatch.getSkill(SkillSlots.BASIC_ATTACK), null, 1);
+                    }
+                }, AnimationEvent.Side.SERVER));
         HANDHALFSWORD_HEAVY_ATTACK2 = new AttackAnimation(0.5F,0.53F,0.54F,0.73F,1.17F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_heavyattack_2", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F));
