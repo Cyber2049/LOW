@@ -15,9 +15,7 @@ public class LOWSkills {
     public static Skill HAND_HALF_SWORD_HEAVY_ATTACK;
     public static void registerSkills(){
         SkillManager.register(HeavyAttack::new, HeavyAttack.createHeavyAttackBuilder()
-                .setAnimations(new ResourceLocation("theforcelawtweaks","biped/combat/handhalfsword_heavyattack_1"),
-                                new ResourceLocation("theforcelawtweaks","biped/combat/handhalfsword_heavyattack_2")) ,
-                "theforcelawtweaks","handhalfsword_heavyattak");
+                .setAnimations(new ResourceLocation("theforcelawtweaks","biped/combat/handhalfsword_heavyattack_1"), new ResourceLocation("theforcelawtweaks","biped/combat/handhalfsword_heavyattack_2")) ,"theforcelawtweaks","handhalfsword_heavyattak");
     }
 
     @SubscribeEvent

@@ -33,6 +33,7 @@ public class HeavyAttack extends WeaponInnateSkill {
         super.executeOnServer(executer, args);
         int combo = executer.getSkill(SkillCategories.BASIC_ATTACK.universalOrdinal()).getDataManager().getDataValue(SkillDataKeys.COMBO_COUNTER.get());
         int heavyAttack = combo%2;
+
         executer.playAnimationSynchronized(this.animations[heavyAttack], 0.0F);
         TFLLOGGER.info("STAMINA: "+ executer.getStamina());
     }
