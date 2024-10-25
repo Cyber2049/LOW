@@ -1,13 +1,12 @@
 package com.nameless.theforcelawtweaks.skill.weaponinnateskill;
 
+import com.nameless.theforcelawtweaks.gameasset.TFLAnimations;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import yesman.epicfight.api.animation.types.DynamicAnimation;
 import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.main.EpicFightMod;
-import yesman.epicfight.skill.Skill;
-import yesman.epicfight.skill.SkillCategories;
-import yesman.epicfight.skill.SkillCategory;
-import yesman.epicfight.skill.SkillDataKeys;
+import yesman.epicfight.skill.*;
 import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 
@@ -29,8 +28,30 @@ public class HeavyAttack extends WeaponInnateSkill {
         return (new HeavyAttack.Builder()).setCategory(SkillCategories.WEAPON_INNATE).setResource(Resource.STAMINA);
     }
 
+    @Override
+    public boolean shouldDraw(SkillContainer container) {
+        return false;
+    }
+
     public void executeOnServer(ServerPlayerPatch executer, FriendlyByteBuf args) {
         super.executeOnServer(executer, args);
+        DynamicAnimation currentAnimation = executer.getAnimator().getPlayerFor(null).getAnimation();
+        //重击1接重击2
+        if(currentAnimation.equals(this.animations[0])){
+            executer.playAnimationSynchronized(this.animations[1], 0.0F);
+            return;
+        }
+        //重击2接重击1
+        if(currentAnimation.equals(this.animations[1])){
+            executer.playAnimationSynchronized(this.animations[0], 0.0F);
+            return;
+        }
+        //闪避技能接pursuit_heavy
+        if(currentAnimation.equals(TFLAnimations.HANDHALFSWORD_DODGE_ATTACK1) || currentAnimation.equals(TFLAnimations.HANDHALFSWORD_DODGE_ATTACK2)){
+            executer.playAnimationSynchronized(TFLAnimations.PURSUIT_HEAVY, 0.0F);
+            return;
+        }
+
         int combo = executer.getSkill(SkillCategories.BASIC_ATTACK.universalOrdinal()).getDataManager().getDataValue(SkillDataKeys.COMBO_COUNTER.get());
         int heavyAttack = combo%2;
 

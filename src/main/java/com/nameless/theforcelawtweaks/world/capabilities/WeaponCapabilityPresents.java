@@ -26,7 +26,15 @@ public class WeaponCapabilityPresents {
             .category(CapabilityItem.WeaponCategories.SWORD)
             .styleProvider((playerpatch) -> playerpatch.getHoldingItemCapability(InteractionHand.OFF_HAND).getWeaponCategory() == CapabilityItem.WeaponCategories.SWORD ? CapabilityItem.Styles.TWO_HAND : CapabilityItem.Styles.ONE_HAND)
             .collider(ColliderPreset.SWORD)
-            .newStyleCombo(CapabilityItem.Styles.ONE_HAND, TFLAnimations.HANDHALFSWORD_AUTO1, TFLAnimations.HANDHALFSWORD_AUTO2, TFLAnimations.HANDHALFSWORD_AUTO3, TFLAnimations.HANDHALFSWORD_AUTO4, TFLAnimations.HANDHALFSWORD_AUTO5, TFLAnimations.HANDHALFSWORD_DASH, TFLAnimations.HANDHALFSWORD_AIRSLASH)
+            .newStyleCombo(CapabilityItem.Styles.ONE_HAND,
+                    TFLAnimations.HANDHALFSWORD_AUTO1,
+                    TFLAnimations.HANDHALFSWORD_AUTO2,
+                    TFLAnimations.HANDHALFSWORD_AUTO2,
+                    TFLAnimations.HANDHALFSWORD_AUTO3,
+                    TFLAnimations.HANDHALFSWORD_AUTO4,
+                    TFLAnimations.HANDHALFSWORD_AUTO5,
+                    TFLAnimations.HANDHALFSWORD_DASH,
+                    TFLAnimations.HANDHALFSWORD_AIRSLASH)
             .innateSkill(CapabilityItem.Styles.ONE_HAND, itemStack -> LOWSkills.HAND_HALF_SWORD_HEAVY_ATTACK)
             .newStyleCombo(CapabilityItem.Styles.TWO_HAND, TFLAnimations.HANDHALFSWORD_DUAL_AUTO1, TFLAnimations.HANDHALFSWORD_DUAL_AUTO2, TFLAnimations.HANDHALFSWORD_DUAL_AUTO3, TFLAnimations.HANDHALFSWORD_DUAL_AUTO4, TFLAnimations.HANDHALFSWORD_DUAL_AUTO5, TFLAnimations.HANDHALFSWORD_DUAL_DASH, TFLAnimations.HANDHALFSWORD_DUAL_AIRSLASH)
             .newStyleCombo(CapabilityItem.Styles.MOUNT, Animations.SWORD_MOUNT_ATTACK)

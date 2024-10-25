@@ -13,6 +13,7 @@ import yesman.epicfight.api.forgeevent.AnimationRegistryEvent;
 import yesman.epicfight.api.utils.TimePairList;
 import yesman.epicfight.api.utils.math.ValueModifier;
 import yesman.epicfight.api.utils.math.Vec3f;
+import yesman.epicfight.client.input.EpicFightKeyMappings;
 import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.gameasset.Armatures;
 import yesman.epicfight.gameasset.ColliderPreset;
@@ -38,6 +39,10 @@ public class TFLAnimations {
     public static StaticAnimation HANDHALFSWORD_DASH;
     public static StaticAnimation HANDHALFSWORD_HEAVY_ATTACK1;
     public static StaticAnimation HANDHALFSWORD_HEAVY_ATTACK2;
+    public static StaticAnimation HANDHALFSWORD_DODGE_ATTACK1;
+    public static StaticAnimation HANDHALFSWORD_DODGE_ATTACK2;
+    public static StaticAnimation PURSUIT_LIGHT;
+    public static StaticAnimation PURSUIT_HEAVY;
     public static StaticAnimation HANDHALFSWORD_AIRSLASH;
     public static StaticAnimation HANDHALFSWORD_DUAL_AUTO1;
     public static StaticAnimation HANDHALFSWORD_DUAL_AUTO2;
@@ -116,12 +121,56 @@ public class TFLAnimations {
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.3F))
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.2F))
                 .addProperty(AnimationProperty.ActionAnimationProperty.MOVE_VERTICAL, false);
-        HANDHALFSWORD_HEAVY_ATTACK1 = new AttackAnimation(0.5F,0.53F,0.54F,0.73F,1.16F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_heavyattack_1", biped)
+
+        HANDHALFSWORD_DODGE_ATTACK1 = new AttackAnimation(0.15F, 0.05F, 0.06F, 0.16F, 0.55F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_1", biped)
+                .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F)).addEvents(AnimationEvent.TimePeriodEvent.create(0.55F, 1.0F, ((livingEntityPatch, staticAnimation, objects) -> {
+                    if(EpicFightKeyMappings.WEAPON_INNATE_SKILL.isDown()){
+                        livingEntityPatch.playAnimationSynchronized(PURSUIT_LIGHT, 0.0F);
+                    }
+                }), AnimationEvent.Side.CLIENT))
+                .newTimePair(1.5F, Float.MAX_VALUE)
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true);
+
+        HANDHALFSWORD_DODGE_ATTACK2 = new AttackAnimation(0.15F, 0.05F, 0.06F, 0.16F, 0.55F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_2", biped)
+                .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F)).addEvents(AnimationEvent.TimePeriodEvent.create(0.55F, 1.0F, ((livingEntityPatch, staticAnimation, objects) -> {
+                    if(EpicFightKeyMappings.WEAPON_INNATE_SKILL.isDown()){
+                        livingEntityPatch.playAnimationSynchronized(PURSUIT_LIGHT, 0.0F);
+                    }
+                }), AnimationEvent.Side.CLIENT))
+                .newTimePair(1.5F, Float.MAX_VALUE)
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true);
+
+        PURSUIT_LIGHT = new AttackAnimation(0.1F, 0.36F, 0.5F, 0.16F, 0.75F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_pursuit_light", biped)
+                .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.3F))
+                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.25F));
+
+        PURSUIT_HEAVY = new AttackAnimation(0.1F, 0.56F, 0.57F, 0.67F, 1.20F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_pursuit_heavy", biped)
+                .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.6F))
+                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.5F));
+
+        HANDHALFSWORD_HEAVY_ATTACK1 = new AttackAnimation(0.5F,0.6F,0.61F,1.05F,1.5F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_heavyattack_1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F)
-                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F));
-        HANDHALFSWORD_HEAVY_ATTACK2 = new AttackAnimation(0.5F,0.53F,0.54F,0.73F,1.17F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_heavyattack_2", biped)
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F))
+                .newTimePair(1.5F, Float.MAX_VALUE)
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true)
+                .addEvents(AnimationEvent.TimePeriodEvent.create(0.01F, 0.54F, ((livingEntityPatch, staticAnimation, objects) -> {
+                    if(EpicFightKeyMappings.DODGE.isDown()){
+                        livingEntityPatch.playAnimationSynchronized(HANDHALFSWORD_DODGE_ATTACK1, 0.0F);
+                    }
+                }), AnimationEvent.Side.CLIENT));
+        HANDHALFSWORD_HEAVY_ATTACK2 = new AttackAnimation(0.5F,0.6F,0.61F,1.0F,1.5F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_heavyattack_2", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F)
-                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F));
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F)).addEvents(AnimationEvent.TimePeriodEvent.create(0.01F, 0.61F, ((livingEntityPatch, staticAnimation, objects) -> {
+                    if(EpicFightKeyMappings.DODGE.isDown()){
+                        livingEntityPatch.playAnimationSynchronized(HANDHALFSWORD_DODGE_ATTACK2, 0.0F);
+                    }
+                }), AnimationEvent.Side.CLIENT));
+
+
 
 
         //dual
