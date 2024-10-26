@@ -1,6 +1,7 @@
 package com.nameless.theforcelawtweaks.skill.weaponinnateskill;
 
-import com.nameless.theforcelawtweaks.gameasset.TFLAnimations;
+import com.nameless.theforcelawtweaks.gameasset.animation.TFLAnimations;
+import com.nameless.theforcelawtweaks.gameasset.animation.TFLDodgeAttackAnimation;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import yesman.epicfight.api.animation.types.DynamicAnimation;
@@ -9,10 +10,14 @@ import yesman.epicfight.main.EpicFightMod;
 import yesman.epicfight.skill.*;
 import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
+import yesman.epicfight.world.entity.eventlistener.PlayerEventListener;
+
+import java.util.UUID;
 
 import static com.nameless.theforcelawtweaks.main.TheForceLawTweaks.TFLLOGGER;
 
 public class HeavyAttack extends WeaponInnateSkill {
+    private static final UUID EVENT_UUID = UUID.fromString("d1d145cc-f10f-41ed-a14b-5141ac919810");
 
     private final StaticAnimation[] animations;
 
@@ -22,6 +27,17 @@ public class HeavyAttack extends WeaponInnateSkill {
         for(int i = 0; i < builder.animationLocations.length; ++i) {
             this.animations[i] = EpicFightMod.getInstance().animationManager.findAnimationByPath(builder.animationLocations[i].toString());
         }
+    }
+
+    @Override
+    public void onInitiate(SkillContainer container) {
+        super.onInitiate(container);
+        container.getExecuter().getEventListener().addEventListener(PlayerEventListener.EventType.SKILL_EXECUTE_EVENT, EVENT_UUID, (event -> {
+            DynamicAnimation currentAnim = event.getPlayerPatch().getAnimator().getPlayerFor(null).getAnimation();
+            if(event.getSkillContainer().getSkill().getCategory().equals(SkillCategories.DODGE) && (currentAnim.equals(animations[0]) || currentAnim.equals(animations[1]))){
+                event.setCanceled(true);
+            }
+        }));
     }
 
     public static HeavyAttack.Builder createHeavyAttackBuilder() {
@@ -47,8 +63,8 @@ public class HeavyAttack extends WeaponInnateSkill {
             return;
         }
         //闪避技能接pursuit_heavy
-        if(currentAnimation.equals(TFLAnimations.HANDHALFSWORD_DODGE_ATTACK1) || currentAnimation.equals(TFLAnimations.HANDHALFSWORD_DODGE_ATTACK2)){
-            executer.playAnimationSynchronized(TFLAnimations.PURSUIT_HEAVY, 0.0F);
+        if(currentAnimation instanceof TFLDodgeAttackAnimation){
+            executer.playAnimationSynchronized(TFLAnimations.PURSUIT, 0.0F);
             return;
         }
 

@@ -1,6 +1,6 @@
 package com.nameless.theforcelawtweaks.skill.weaponinnateskill;
 
-import com.nameless.theforcelawtweaks.gameasset.TFLAnimations;
+import com.nameless.theforcelawtweaks.gameasset.animation.TFLAnimations;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;

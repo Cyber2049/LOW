@@ -1,7 +1,7 @@
 package com.nameless.theforcelawtweaks.world.capabilities;
 
 import com.nameless.theforcelawtweaks.gameasset.LOWSkills;
-import com.nameless.theforcelawtweaks.gameasset.TFLAnimations;
+import com.nameless.theforcelawtweaks.gameasset.animation.TFLAnimations;
 import com.nameless.theforcelawtweaks.main.TheForceLawTweaks;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -11,7 +11,6 @@ import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.forgeevent.WeaponCapabilityPresetRegistryEvent;
 import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.gameasset.ColliderPreset;
-import yesman.epicfight.gameasset.EpicFightSkills;
 import yesman.epicfight.gameasset.EpicFightSounds;
 import yesman.epicfight.world.capabilities.EpicFightCapabilities;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
@@ -29,10 +28,25 @@ public class WeaponCapabilityPresents {
             .newStyleCombo(CapabilityItem.Styles.ONE_HAND,
                     TFLAnimations.HANDHALFSWORD_AUTO1,
                     TFLAnimations.HANDHALFSWORD_AUTO2,
-                    TFLAnimations.HANDHALFSWORD_AUTO2,
                     TFLAnimations.HANDHALFSWORD_AUTO3,
                     TFLAnimations.HANDHALFSWORD_AUTO4,
                     TFLAnimations.HANDHALFSWORD_AUTO5,
+                    TFLAnimations.HANDHALFSWORD_AUTO3,
+                    TFLAnimations.HANDHALFSWORD_AUTO4,
+                    TFLAnimations.HANDHALFSWORD_AUTO5,
+                    TFLAnimations.HANDHALFSWORD_AUTO3,
+                    TFLAnimations.HANDHALFSWORD_AUTO4,
+                    TFLAnimations.HANDHALFSWORD_AUTO5,
+                    TFLAnimations.HANDHALFSWORD_AUTO3,
+                    TFLAnimations.HANDHALFSWORD_AUTO4,
+                    TFLAnimations.HANDHALFSWORD_AUTO5,
+                    TFLAnimations.HANDHALFSWORD_AUTO3,
+                    TFLAnimations.HANDHALFSWORD_AUTO4,
+                    TFLAnimations.HANDHALFSWORD_AUTO5,
+                    TFLAnimations.HANDHALFSWORD_AUTO3,
+                    TFLAnimations.HANDHALFSWORD_AUTO4,
+                    TFLAnimations.HANDHALFSWORD_AUTO5,
+                    TFLAnimations.HANDHALFSWORD_AUTO3,
                     TFLAnimations.HANDHALFSWORD_DASH,
                     TFLAnimations.HANDHALFSWORD_AIRSLASH)
             .innateSkill(CapabilityItem.Styles.ONE_HAND, itemStack -> LOWSkills.HAND_HALF_SWORD_HEAVY_ATTACK)
@@ -58,8 +72,15 @@ public class WeaponCapabilityPresents {
                     .collider(ColliderPreset.GREATSWORD)
                     .swingSound(EpicFightSounds.WHOOSH_BIG.get())
                     .hitSound(EpicFightSounds.BLADE_HIT.get())
-                    .newStyleCombo(CapabilityItem.Styles.TWO_HAND, TFLAnimations.COLOSSALSWORD_AUTO1,TFLAnimations.COLOSSALSWORD_AUTO2,TFLAnimations.COLOSSALSWORD_AUTO3,TFLAnimations.COLOSSALSWORD_AUTO4,TFLAnimations.COLOSSALSWORD_AUTO5, Animations.GREATSWORD_DASH, Animations.GREATSWORD_AIR_SLASH)
-                    .innateSkill(CapabilityItem.Styles.TWO_HAND, (itemstack) -> EpicFightSkills.STEEL_WHIRLWIND)
+                    .newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                            TFLAnimations.COLOSSALSWORD_AUTO1,
+                            TFLAnimations.COLOSSALSWORD_AUTO2,
+                            TFLAnimations.COLOSSALSWORD_AUTO3,
+                            TFLAnimations.COLOSSALSWORD_AUTO4,
+                            TFLAnimations.COLOSSALSWORD_AUTO5,
+                            Animations.GREATSWORD_DASH,
+                            Animations.GREATSWORD_AIR_SLASH)
+                    .innateSkill(CapabilityItem.Styles.TWO_HAND, (itemstack) -> LOWSkills.COLOSSALSWORD_HEAVY_ATTACK)
                     .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.IDLE, TFLAnimations.COLOSSALSWORD_IDLE)
                     .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.WALK, Animations.BIPED_WALK_GREATSWORD)
                     .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.CHASE, Animations.BIPED_WALK_GREATSWORD)

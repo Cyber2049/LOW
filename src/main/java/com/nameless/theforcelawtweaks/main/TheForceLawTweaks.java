@@ -6,7 +6,7 @@ import com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch.CowDevilPatchRe
 import com.nameless.theforcelawtweaks.gameasset.Armatures;
 import com.nameless.theforcelawtweaks.gameasset.LOWSkills;
 import com.nameless.theforcelawtweaks.gameasset.Meshs;
-import com.nameless.theforcelawtweaks.gameasset.TFLAnimations;
+import com.nameless.theforcelawtweaks.gameasset.animation.TFLAnimations;
 import com.nameless.theforcelawtweaks.world.capabilities.WeaponCapabilityPresents;
 import com.nameless.theforcelawtweaks.world.capabilities.entity.CowDevilPatch;
 import com.nameless.theforcelawtweaks.world.entity.BossEntities;
