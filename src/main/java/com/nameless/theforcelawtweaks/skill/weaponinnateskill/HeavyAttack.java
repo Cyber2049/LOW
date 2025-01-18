@@ -4,6 +4,7 @@ import com.nameless.theforcelawtweaks.gameasset.animation.TFLAnimations;
 import com.nameless.theforcelawtweaks.gameasset.animation.TFLDodgeAttackAnimation;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import yesman.epicfight.api.animation.AnimationManager;
 import yesman.epicfight.api.animation.types.DynamicAnimation;
 import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.main.EpicFightMod;
@@ -25,7 +26,7 @@ public class HeavyAttack extends WeaponInnateSkill {
         super(builder);
         this.animations = new StaticAnimation[builder.animationLocations.length];
         for(int i = 0; i < builder.animationLocations.length; ++i) {
-            this.animations[i] = EpicFightMod.getInstance().animationManager.findAnimationByPath(builder.animationLocations[i].toString());
+            this.animations[i] = AnimationManager.getInstance().byKeyOrThrow(builder.animationLocations[i].toString());
         }
     }
 

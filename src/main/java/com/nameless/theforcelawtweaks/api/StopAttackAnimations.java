@@ -1,7 +1,7 @@
 package com.nameless.theforcelawtweaks.api;
 
-import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import net.minecraft.world.phys.Vec3;
 import yesman.epicfight.api.animation.property.AnimationProperty.ActionAnimationProperty;
@@ -12,17 +12,15 @@ import yesman.epicfight.api.animation.types.EntityState;
 import yesman.epicfight.api.animation.types.EntityState.StateFactor;
 import yesman.epicfight.api.animation.types.StateSpectrum;
 import yesman.epicfight.api.client.animation.Layer;
-import yesman.epicfight.api.client.animation.property.JointMask;
-import yesman.epicfight.api.client.animation.property.JointMask.BindModifier;
 import yesman.epicfight.api.client.animation.property.JointMaskEntry;
 import yesman.epicfight.api.model.Armature;
-import yesman.epicfight.api.utils.TypeFlexibleHashMap;
+import yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap;
 import yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch;
 import yesman.epicfight.config.EpicFightOptions;
 import yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch;
 import yesman.epicfight.world.gamerule.EpicFightGamerules;
 
-public class BasicAttackWinAnimation extends AttackAnimation {
+public class StopAttackAnimations extends AttackAnimation {
 
     protected final StateSpectrum.Blueprint stateUtilsBlueprint = new StateSpectrum.Blueprint();
     private final StateSpectrum stateUtils = new StateSpectrum();
@@ -35,7 +33,7 @@ public class BasicAttackWinAnimation extends AttackAnimation {
     protected final float lockon;
     protected final float lockoff;
 
-    public BasicAttackWinAnimation(float convertTime, float attackstart, float attackend, float attackwinopen, float attackwinclose, float skillwinopen, float skillwinclose, float lockon, float lockoff, String path, Armature armature, AttackAnimation.Phase... phases) {
+    public StopAttackAnimations(float convertTime, float attackstart, float attackend, float attackwinopen, float attackwinclose, float skillwinopen, float skillwinclose, float lockon, float lockoff, String path, Armature armature, AttackAnimation.Phase... phases) {
         super(convertTime, path, armature, phases);
         this.attackstart = attackstart;
         this.attackwinopen = attackwinopen;
@@ -81,11 +79,11 @@ public class BasicAttackWinAnimation extends AttackAnimation {
     }
 
     @Override
-    protected void onLoaded() {
-        super.onLoaded();
+    public void postInit() {
+        super.postInit();
 
         if (!this.properties.containsKey(AttackAnimationProperty.BASIS_ATTACK_SPEED)) {
-            float basisSpeed = Float.parseFloat(String.format(Locale.US, "%.2f", (1.0F / this.totalTime)));
+            float basisSpeed = Float.parseFloat(String.format(Locale.US, "%.2f", (1.0F / this.getTotalTime())));
             this.addProperty(AttackAnimationProperty.BASIS_ATTACK_SPEED, basisSpeed);
         }
     }
@@ -97,7 +95,7 @@ public class BasicAttackWinAnimation extends AttackAnimation {
         boolean stiffAttack = entitypatch.getOriginal().level().getGameRules().getRule(EpicFightGamerules.STIFF_COMBO_ATTACKS).get();
 
         if (!isEnd && !nextAnimation.isMainFrameAnimation() && entitypatch.isLogicalClient() && !stiffAttack) {
-            float playbackSpeed = EpicFightOptions.A_TICK * this.getPlaySpeed(entitypatch);
+            float playbackSpeed = EpicFightOptions.A_TICK * this.getPlaySpeed(entitypatch, this);
             entitypatch.getClientAnimator().baseLayer.copyLayerTo(entitypatch.getClientAnimator().baseLayer.getLayer(Layer.Priority.HIGHEST), playbackSpeed);
         }
     }
@@ -126,28 +124,14 @@ public class BasicAttackWinAnimation extends AttackAnimation {
     }
 
     @Override
-    public boolean isJointEnabled(LivingEntityPatch<?> entitypatch, Layer.Priority layer, String joint) {
-        if (layer == Layer.Priority.HIGHEST) {
-            return !JointMaskEntry.BASIC_ATTACK_MASK.isMasked(entitypatch.getCurrentLivingMotion(), joint);
-        } else {
-            return super.isJointEnabled(entitypatch, layer, joint);
-        }
-    }
-
-    @Override
-    public BindModifier getBindModifier(LivingEntityPatch<?> entitypatch, Layer.Priority layer, String joint) {
-        if (layer == Layer.Priority.HIGHEST) {
-            List<JointMask> list = JointMaskEntry.BIPED_UPPER_JOINTS_WITH_ROOT;
-            int position = list.indexOf(JointMask.of(joint));
-
-            if (position >= 0) {
-                return list.get(position).getBindModifier();
-            } else {
-                return null;
+    public Optional<JointMaskEntry> getJointMaskEntry(LivingEntityPatch<?> entitypatch, boolean useCurrentMotion) {
+        if (entitypatch.isLogicalClient()) {
+            if (entitypatch.getClientAnimator().getPriorityFor(this) == Layer.Priority.HIGHEST) {
+                return Optional.of(JointMaskEntry.BASIC_ATTACK_MASK);
             }
-        } else {
-            return super.getBindModifier(entitypatch, layer, joint);
         }
+
+        return super.getJointMaskEntry(entitypatch, useCurrentMotion);
     }
 
     @Override

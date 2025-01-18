@@ -1,7 +1,7 @@
 package com.nameless.theforcelawtweaks.gameasset.animation;
 
 import com.mojang.datafixers.util.Pair;
-import com.nameless.theforcelawtweaks.api.BasicAttackWinAnimation;
+import com.nameless.theforcelawtweaks.api.StopAttackAnimations;
 import com.nameless.theforcelawtweaks.client.keymappings.TFLKeyMappings;
 import com.nameless.theforcelawtweaks.main.TheForceLawTweaks;
 import net.minecraft.world.InteractionHand;
@@ -124,7 +124,7 @@ public class TFLAnimations {
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.2F))
                 .addEvents(AnimationEvent.TimeStampedEvent.create(0.0F, (entitypatch, animation, params) -> {
                     if (entitypatch instanceof ServerPlayerPatch playerPatch) {
-                        BasicAttack.setComboCounterWithEvent(ComboCounterHandleEvent.Causal.TIME_EXPIRED_RESET, playerPatch, playerPatch.getSkill(SkillSlots.BASIC_ATTACK), null, 1);
+                        BasicAttack.setComboCounterWithEvent(ComboCounterHandleEvent.Causal.TIME_EXPIRED, playerPatch, playerPatch.getSkill(SkillSlots.BASIC_ATTACK), null, 1);
                     }
                 }, AnimationEvent.Side.SERVER));
         HANDHALFSWORD_DASH = new DashAttackAnimation(0.1F, 0.53F, 0.54F, 0.73F, 1.26F, null, biped.toolR, "biped/combat/handhalfsword_dash", biped)
@@ -137,53 +137,47 @@ public class TFLAnimations {
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.2F))
                 .addProperty(AnimationProperty.ActionAnimationProperty.MOVE_VERTICAL, false);
 
-        HANDHALFSWORD_DODGE_ATTACK1 = new TFLDodgeAttackAnimation(0.15F, 0.133F, 0.133F, 0.3F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_1", biped)
+        HANDHALFSWORD_DODGE_ATTACK1 = new TFLDodgeAttackAnimation(0.15F, 0.133F, 0.133F, 0.3F, 1F, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F))
                 .addEvents(AnimationEvent.TimePeriodEvent.create(1F, 2.0F, PURSUIT_EVENT, AnimationEvent.Side.CLIENT))
                 .newTimePair(1F, Float.MAX_VALUE)
-                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true);
 
         HANDHALFSWORD_DODGE_ATTACK1_L = new TFLDodgeAttackAnimation(0.15F, 0.133F, 0.133F, 0.3F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_1_left", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F))
                 .addEvents(AnimationEvent.TimePeriodEvent.create(0.5F, 2.0F, PURSUIT_EVENT, AnimationEvent.Side.CLIENT))
                 .newTimePair(1F, Float.MAX_VALUE)
-                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true);
 
         HANDHALFSWORD_DODGE_ATTACK1_R = new TFLDodgeAttackAnimation(0.15F, 0.133F, 0.133F, 0.3F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_1_right", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F))
                 .addEvents(AnimationEvent.TimePeriodEvent.create(0.5F, 2.0F, PURSUIT_EVENT, AnimationEvent.Side.CLIENT))
                 .newTimePair(1F, Float.MAX_VALUE)
-                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true);
 
         HANDHALFSWORD_DODGE_ATTACK2 = new TFLDodgeAttackAnimation(0.15F, 0.067F, 0.067F, 0.2F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_2", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F))
                 .addEvents(AnimationEvent.TimePeriodEvent.create(0.5F, 2.0F, PURSUIT_EVENT, AnimationEvent.Side.CLIENT))
                 .newTimePair(1F, Float.MAX_VALUE)
-                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true);
 
         HANDHALFSWORD_DODGE_ATTACK2_L = new TFLDodgeAttackAnimation(0.15F, 0.067F, 0.067F, 0.2F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_2_left", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F))
                 .addEvents(AnimationEvent.TimePeriodEvent.create(0.5F, 2.0F, PURSUIT_EVENT, AnimationEvent.Side.CLIENT))
                 .newTimePair(1F, Float.MAX_VALUE)
-                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true);
 
         HANDHALFSWORD_DODGE_ATTACK2_R = new TFLDodgeAttackAnimation(0.15F, 0.067F, 0.067F, 0.2F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_attack_2_right", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F))
                 .addEvents(AnimationEvent.TimePeriodEvent.create(0.5F, 2.0F, PURSUIT_EVENT, AnimationEvent.Side.CLIENT))
                 .newTimePair(1F, Float.MAX_VALUE)
-                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+                .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true);
 
         PURSUIT_LIGHT = new AttackAnimation(0.1F, 0.36F, 0.5F, 0.16F, 0.75F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_pursuit_light", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
@@ -195,11 +189,10 @@ public class TFLAnimations {
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.6F))
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.5F));
 
-        PURSUIT = new AttackAnimation(0.1F, 0.53F, 0.53F, 0.63F, 1.23F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_dodge_pursuit", biped)
+        PURSUIT = new AttackAnimation(0.1F, 0.53F, 0.53F, 0.63F, 1.23F, null, biped.toolR, "biped/combat/handhalfsword_dodge_pursuit", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.6F))
-                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.5F))
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 0.9F));
+                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.5F));
 
         HANDHALFSWORD_HEAVY_ATTACK1 = new AttackAnimation(0.5F, 0.6F, 0.61F, 1.05F, 1.5F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/handhalfsword_heavyattack_1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F)
@@ -239,30 +232,30 @@ public class TFLAnimations {
 
         //dual
         HANDHALFSWORD_DUAL_AUTO1 = new BasicAttackAnimation(0.1F, "biped/combat/handhalfsword_dual_auto1", biped,
-                new AttackAnimation.Phase(0F, 0.4F, 0.41F, 0.67F, 0.80F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
+                new AttackAnimation.Phase(0F, 0.4F, 0.41F, 0.67F, 0.80F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND,biped.toolR, null))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.1F));
         HANDHALFSWORD_DUAL_AUTO2 = new BasicAttackAnimation(0.05F, "biped/combat/handhalfsword_dual_auto2", biped,
-                new AttackAnimation.Phase(0F, 0.3F, 0.31F, 0.43F, 0.5F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
+                new AttackAnimation.Phase(0F, 0.3F, 0.31F, 0.43F, 0.5F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND,biped.toolR, null))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F);
         HANDHALFSWORD_DUAL_AUTO3 = new BasicAttackAnimation(0.05F, "biped/combat/handhalfsword_dual_auto3", biped,
-                new AttackAnimation.Phase(0F, 0.6F, 0.61F, 0.73F, 0.83F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
+                new AttackAnimation.Phase(0F, 0.6F, 0.61F, 0.73F, 0.83F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, biped.toolR, null))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F);
         HANDHALFSWORD_DUAL_AUTO4 = new BasicAttackAnimation(0.05F, "biped/combat/handhalfsword_dual_auto4", biped,
-                new AttackAnimation.Phase(0F, 0.33F, 0.34F, 0.57F, 0.73F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))),
-                new AttackAnimation.Phase(0F, 0.43F, 0.45F, 0.7F, 0.8F, Float.MAX_VALUE, false, InteractionHand.OFF_HAND, List.of(Pair.of(biped.toolL, null), Pair.of(biped.toolL, null))))
+                new AttackAnimation.Phase(0F, 0.33F, 0.34F, 0.57F, 0.73F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, biped.toolR, null),
+                new AttackAnimation.Phase(0F, 0.43F, 0.45F, 0.7F, 0.8F, Float.MAX_VALUE, false, InteractionHand.OFF_HAND,biped.toolL, null))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F);
         HANDHALFSWORD_DUAL_AUTO5 = new BasicAttackAnimation(0.05F, "biped/combat/handhalfsword_dual_auto5", biped,
-                new AttackAnimation.Phase(0F, 0.33F, 0.34F, 0.6F, 0.83F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
+                new AttackAnimation.Phase(0F, 0.33F, 0.34F, 0.6F, 0.83F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, biped.toolR, null))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.1F))
                 .addEvents(AnimationEvent.TimeStampedEvent.create(0.0F, (entitypatch, animation, params) -> {
                     if (entitypatch instanceof ServerPlayerPatch playerPatch) {
-                        BasicAttack.setComboCounterWithEvent(ComboCounterHandleEvent.Causal.TIME_EXPIRED_RESET, playerPatch, playerPatch.getSkill(SkillSlots.BASIC_ATTACK), null, 1);
+                        BasicAttack.setComboCounterWithEvent(ComboCounterHandleEvent.Causal.TIME_EXPIRED, playerPatch, playerPatch.getSkill(SkillSlots.BASIC_ATTACK), null, 1);
                     }
                 }, AnimationEvent.Side.SERVER));
         HANDHALFSWORD_DUAL_DASH = new DashAttackAnimation(0.1F, "biped/combat/handhalfsword_dual_dash", biped,
-                new AttackAnimation.Phase(0F, 0.6F, 0.61F, 1.67F, 2F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
+                new AttackAnimation.Phase(0F, 0.6F, 0.61F, 1.67F, 2F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, biped.toolR, null))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.2F))
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.1F));
@@ -285,7 +278,7 @@ public class TFLAnimations {
         IDEL0 = new StaticAnimation(true, "biped/monster/idle0", biped);
         IDEL1 = new StaticAnimation(true, "biped/monster/idle1", biped);
         RUN = new StaticAnimation(true, "biped/monster/run", biped);
-        SHIELD = new MirrorAnimation(0.25F, true, "biped/monster/shield", "biped/monster/shield", biped);
+        SHIELD = new MirrorAnimation(0.25F, true, "biped/monster/shield","biped/monster/shield", "biped/monster/shield", biped);
         SHIELD_BOKEN = new LongHitAnimation(0.05F, "biped/monster/shield-broken", biped);
         SHIELD_HIT1 = new LongHitAnimation(0.05F, "biped/monster/shield-hit-1", biped);
         SHIELD_HIT2 = new LongHitAnimation(0.05F, "biped/monster/shield-hit-2", biped);
@@ -348,7 +341,7 @@ public class TFLAnimations {
                 new AttackAnimation.Phase(0F, 0.7F, 0.75F, 1.13F, 1.43F, Float.MAX_VALUE, biped.toolR, null))
                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, Animations.ReusableSources.CONSTANT_ONE)
                 .addEvents(AnimationEvent.TimeStampedEvent.create(1.25F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), Armatures.BIPED.toolR, 1.1D, 0.55F));
-        EXECUTE = new BasicAttackWinAnimation(0.0F, 0.0F, 2.65F, 1.3F, 1.75F, 0.7F, 2.65F, 0.0F, 0.0F, "biped/hit/execute", biped,
+        EXECUTE = new StopAttackAnimations(0.0F, 0.0F, 2.65F, 1.3F, 1.75F, 0.7F, 2.65F, 0.0F, 0.0F, "biped/hit/execute", biped,
                 new AttackAnimation.Phase(0.0F, 0.75F, 0.51F, 0.95F, 3F, biped.toolR, null)
                         .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.1F))
                         .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER, ValueModifier.setter(1F))

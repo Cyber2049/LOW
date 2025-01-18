@@ -55,8 +55,8 @@ public class CowDevilArmature extends Armature {
     public final Joint tail4;
     public final Joint tail5;
     public final Joint tail6;
-    public CowDevilArmature(int jointNumber, Joint rootJoint, Map<String, Joint> jointMap) {
-        super(jointNumber, rootJoint, jointMap);
+    public CowDevilArmature(String name,int jointNumber, Joint rootJoint, Map<String, Joint> jointMap) {
+        super(name,jointNumber, rootJoint, jointMap);
         this.head = this.getOrLogException(jointMap, "Head");
         this.chest = this.getOrLogException(jointMap, "Chest");
         this.torso = this.getOrLogException(jointMap, "Torso");

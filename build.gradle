@@ -140,7 +140,7 @@ dependencies {
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 //    implementation fg.deobf("curse.maven:epic-fight-mod-405076:5159623")
-    implementation fg.deobf("libs:EpicFight:20.7.4")
+    implementation fg.deobf("curse.maven:epic-fight-mod-405076:5922122")
     implementation fg.deobf("libs:tflw:1.1.3")
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
     implementation("com.eliotlash.mclib:mclib:20")
