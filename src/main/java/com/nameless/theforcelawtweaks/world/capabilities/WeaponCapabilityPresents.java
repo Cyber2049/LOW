@@ -96,10 +96,12 @@ public class WeaponCapabilityPresents {
 
 
 
+
     @SubscribeEvent
     public static void register(WeaponCapabilityPresetRegistryEvent event) {
         event.getTypeEntry().put(new ResourceLocation(TheForceLawTweaks.MODID,"handhalfsword"), HANDHALFSWORD);
         event.getTypeEntry().put(new ResourceLocation(TheForceLawTweaks.MODID,"colossalsword"), COLOSSALSWORD);
+
         TFLLOGGER.info("register weapon type");
     }
 }

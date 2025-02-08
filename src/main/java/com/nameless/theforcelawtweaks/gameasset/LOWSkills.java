@@ -21,10 +21,12 @@ public class LOWSkills {
         SkillBuildEvent.ModRegistryWorker modRegistry = build.createRegistryWorker(EpicFightMod.MODID);
 
         HAND_HALF_SWORD_HEAVY_ATTACK = modRegistry.build("handhalfsword_heavyattak", HeavyAttack::new, HeavyAttack.createHeavyAttackBuilder()
-                .setAnimations(new ResourceLocation(TheForceLawTweaks.MODID,"biped/combat/handhalfsword_heavyattack_1"), new ResourceLocation(TheForceLawTweaks.MODID,"biped/combat/handhalfsword_heavyattack_2")));
+                .setAnimations(new ResourceLocation(TheForceLawTweaks.MODID,"biped/combat/handhalfsword_heavyattack_1"),
+                        new ResourceLocation(TheForceLawTweaks.MODID,"biped/combat/handhalfsword_heavyattack_2")));
 
         COLOSSALSWORD_HEAVY_ATTACK = modRegistry.build("colossalsword_heavyattak",HeavyAttack::new, HeavyAttack.createHeavyAttackBuilder()
-                .setAnimations(new ResourceLocation(TheForceLawTweaks.MODID,"biped/combat/colossalsword/colossalsword_heavy1"), new ResourceLocation(TheForceLawTweaks.MODID,"biped/combat/colossalsword/colossalsword_heavy2")));
+                .setAnimations(new ResourceLocation(TheForceLawTweaks.MODID,"biped/combat/colossalsword/colossalsword_heavy1"),
+                        new ResourceLocation(TheForceLawTweaks.MODID,"biped/combat/colossalsword/colossalsword_heavy2")));
 
         }
 }
